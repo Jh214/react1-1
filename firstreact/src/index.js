@@ -3,12 +3,15 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import Welcome from './ch_04/Welcome';
+import CommentList from './ch_04/CommentList';
+import NotificationList from './ch_04/NotificationList';
+
+const element = <Welcome name = "인제"/>
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <NotificationList/>
 );
 
 // If you want to start measuring performance in your app, pass a function
