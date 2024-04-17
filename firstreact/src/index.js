@@ -6,12 +6,14 @@ import reportWebVitals from './reportWebVitals';
 import Welcome from './ch_05/Welcome';
 import CommentList from './ch_05/CommentList';
 import NotificationList from './ch_06/NotificationList';
+import Counter from './Counter';
 
 const element = <Welcome name = "인제"/>
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <NotificationList/>
+  // <NotificationList/>
+  <Counter />
 );
 
 // If you want to start measuring performance in your app, pass a function
