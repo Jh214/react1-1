@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import Welcome from './ch_04/Welcome';
-import CommentList from './ch_04/CommentList';
-import NotificationList from './ch_04/NotificationList';
+import Welcome from './ch_05/Welcome';
+import CommentList from './ch_05/CommentList';
+import NotificationList from './ch_06/NotificationList';
 
 const element = <Welcome name = "인제"/>
 
