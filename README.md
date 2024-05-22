@@ -1,15 +1,78 @@
 # 심재휘 202030316
 
-1️⃣ [2주차](#2024-03-13-강의-내용)  
-2️⃣ [3주차](#2024-03-20-강의-내용)  
-3️⃣ [5주차](#2024-04-03-강의-내용)  
-4️⃣ [7주차](#2024-04-17-강의-내용)  
+2️⃣ [2주차](#2024-03-13-강의-내용)  
+3️⃣ [3주차](#2024-03-20-강의-내용)  
+5️⃣ [5주차](#2024-04-03-강의-내용)  
+7️⃣ [7주차](#2024-04-17-강의-내용)  
 9️⃣ [9주차](#2024-05-01-강의-내용)  
 1️⃣0️⃣ [10주차](#2024-05-08-강의-내용)  
 1️⃣2️⃣ [12주차](#2024-05-22-강의-내용)  
 
 ## 2024-05-22 강의 내용
+### 리스트와 키란 무엇인가?
+ 1. 리스트는 자바스크립트의 변수나 객체를 하나의 변수로 묶어 놓은 배열과 같은 것이다.
+ 2. 키는 각 객체나 아이템을 구분할 수 있는 고유한 값을 의미함.
+ 3. 리액트에서는 배열과 키를 사용하는 반복되는 다수의 엘리먼트를 쉽게 렌더링할 수 있음.
 
+## 2024-05-08 강의 내용
+### Argument 전달
+ 1. 함수에 전달할 데이터를 Argument라고 함
+ 2. 클래스 컴포넌트는 bind 함수를 사용해서 전달
+ 3. 함수형 컴포넌트는 arrow function을 주로 사용함.
+
+ ```js
+ import { useState } from 'react';
+import WarningBanner from './WarningBanner';
+
+export default function MainPage() {
+const [showWarning, setShowWarning] = useState(false);
+
+    const toggleClick = () => {
+        setShowWarning((prevShowWarning) => !prevShowWarning);
+    };
+
+    return (
+        <div>
+            <WarningBanner warning={showWarning} />
+            <button onClick={toggleClick}>{showWarning ? '감추기' : '보여주기'}</button>
+        </div>
+    );
+
+}
+ ```
+
+### 엘리먼트 변수
+ 1. 렌더링 해야 할 컴포넌트를 변수처럼 다루고 싶을 때 엘리먼트 변수를 사용함
+ 2. button 변수에 담아 컴포넌트를 대입한 예제 코드
+ ```js
+     let button;
+    if (isLogedIn) {
+      button = <LogoutButton onClick={handleLogoutClick} />;
+    } else {
+      button = <LoginButton onClick={handleLoginClick} />;
+    }
+ ```
+
+### 인라인 조건
+ 1. 별도로 분리된 곳에 적성하지 않고, 해당 코드가 필요한 곳 안에 직접 삽입함.
+ 2. 인라인 조건은 조건문을 코드 안에 집어 넣어야 함.
+ ```js
+ true && expression -> expression
+false && expression -> false
+ ```
+
+### 컴포넌트 렌더링 막기
+ 1. 컴포넌트를 렌더링 하고 싶지 않을 때는 null을 반환한다.
+ 2. False인 경우에만 null을 반환하기 때문에 컴포넌트를 출력하지 않는다.
+ ```js
+ export default function WarningBanner(props) {
+  if (props.warning) {
+    return null;
+  }
+  return <div>경고!!</div>;
+}
+ ```
+ 
 
 ## 2024-05-01 강의 내용
 ### 훅의 규칙

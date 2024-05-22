@@ -4,11 +4,12 @@
 // import FocusButton from './FocusButton';
 // import Accommodate from './ch_07/Accommodate';
 import LandingPage from './ch_09/LandingPage';
+import Numberlist from './ch_09/NumberList';
 
 function App() {
   return (
     <div className="App">
-      <LandingPage/>
+      <Numberlist/>
     </div>
   );
 }
