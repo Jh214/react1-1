@@ -7,12 +7,90 @@
 9️⃣ [9주차](#2024-05-01-강의-내용)  
 1️⃣0️⃣ [10주차](#2024-05-08-강의-내용)  
 1️⃣2️⃣ [12주차](#2024-05-22-강의-내용)  
+1️⃣3️⃣ [13주차](#2024-05-29-강의-내용)
+
+## 2024-05-29 강의 내용
+### textarea 태그
+ 1. html에서는 textarea 의 children으로 텍스트가 들어가는 형태입니다.
+ ``` html
+ <textarea>
+   안녕하세요, 여기에 이렇게 텍스트가 들어가게 됩니다.
+ </textarea>
+ ```
+ 2. 리액트에서는 state를 통해 태그의 value라는 attribute를 변경하여 텍스트를 변경합니다.
+
+### select 태그
+ 1. select 태그도 textarea와 동일함
+ ``` js
+ function FruitSeelct(props){
+  const [value, setValue] = useState("grape");
+
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  }
+
+  const handleSubmit = (event) => {
+    alert('선택한 과일 : ' + value);
+    event.preventDefault();
+  }
+
+  return (
+    <form onSubmit = {handleSubmit}>
+      <label>
+      과일을 선택하세요 : 
+        <select value = {value} onChange = {handleChagne}>
+          <option value = 'apple'>사과</option>
+          <option value = 'banana'>바나나</option>
+          <option value = 'grape'>포도</option>
+          <option value = 'watermelon'>수박</option>
+        </select>
+      </label>
+      <button type = "submit">제출</button>
+    </form>
+  )
+ }
+ ```
+
+### File input 태그
+ 1. File input 태그는 그 값이 읽기 전용이기 때문에 리액트트에서는 비제어 컴포넌트가 됩니다.
+
+### Input Null Value
+ 1. 제어 컴포넌트에 value prop을 정해진 값으로 넣으면 코드를 수정하지 않는 한 입력값을 바꿀 수 없습니다.
+ 2. 만약 value prop은 넣되 자유롭게 입력할 수 있게 만들고 싶다면 값이 undefined 또는 null을 넣어주면 됩니다.
+```js
+ReactDOM.render(<input value = "hi"/>), rootNode;
+
+setTimeout(function(){
+  ReactDOM.render(<input value = {null}/>, rootNode);
+}, 1000);
+```
 
 ## 2024-05-22 강의 내용
 ### 리스트와 키란 무엇인가?
  1. 리스트는 자바스크립트의 변수나 객체를 하나의 변수로 묶어 놓은 배열과 같은 것이다.
  2. 키는 각 객체나 아이템을 구분할 수 있는 고유한 값을 의미함.
  3. 리액트에서는 배열과 키를 사용하는 반복되는 다수의 엘리먼트를 쉽게 렌더링할 수 있음.
+
+### 리스트의 키에 대해 알아보기
+ 1. 리스트에서의 키는 "리스트에서 아이템을 구별하기 위한 고유한 문자열"
+ 2. 이 키는 리스트에서 어떤 아이템이 변경, 추가 또는 제거되었는지 구분하기 위해 사용함.
+ 3. 키는 같은 리스트에 있는 엘리먼트 사이에서만 고유한 값이면 된다.
+ ![alt text](image.png)
+
+### 폼이란 무엇인가?
+ 1. 폼은 일반적으로 사용자로부터 입력을 받기위한 양식에서 많이 사용 됨
+ ```js
+ <from>
+ <label>
+ 이름:
+ <input type='text' name="name" />
+ </label>
+ <button type="submit">제출</button>
+ </from>
+ ```
+
+### 제어 컴포넌트
+ 1. 제어 컴포넌트는 사용자가 입력한 값에 접근하고 제어할 수 있도록 해주는 컴포넌트이다.
 
 ## 2024-05-08 강의 내용
 ### Argument 전달
@@ -72,7 +150,7 @@ false && expression -> false
   return <div>경고!!</div>;
 }
  ```
- 
+
 
 ## 2024-05-01 강의 내용
 ### 훅의 규칙
