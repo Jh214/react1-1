@@ -8,11 +8,15 @@ import LandingPage from './ch_09/LandingPage';
 import NameForm from './ch_09/NameForm';
 import Numberlist from './ch_09/NumberList';
 import SignUp from './ch_11/SignUp';
+import Card from './ch_13/Card';
+import ContextTest from '.ch_13/ContextTest'
+import ProfileCard from './ch_13/ProfileCard';
+import MainContent from './ch_14/MainContext';
 
 function App() {
   return (
     <div className="App">
-      <SignUp/>
+      <MainContext/>
     </div>
   );
 }

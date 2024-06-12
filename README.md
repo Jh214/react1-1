@@ -7,8 +7,320 @@
 9️⃣ [9주차](#2024-05-01-강의-내용)  
 1️⃣0️⃣ [10주차](#2024-05-08-강의-내용)  
 1️⃣2️⃣ [12주차](#2024-05-22-강의-내용)  
-1️⃣3️⃣ [13주차](#2024-05-29-강의-내용)
+1️⃣3️⃣ [13주차](#2024-05-29-강의-내용)  
+1️⃣4️⃣ [14주차](#2024-06-05-강의-내용)  
+1️⃣5️⃣ [15주차(보강 1)](#2024-06-11-강의-내용)  
 
+## 2024-06-11 강의 내용
+### Specialization (특수화, 전문화)
+ 1. 웰컴 다이얼로그는 다이얼로그의 특별한 케이스
+ 2. 범용적인 개념을 구별이 되게 구체화하는 것을 특수화라고 함
+ 3. 객체지향 언어에서는 상속으 사용하여 특수화를 구현함
+ 4. 리액트에서는 합성을 사용하여 특수화를 구현함
+ 5. 특수화는 범용적으로 쓸 수 있는 컴포넌트를 만들어 놓고 이를 특수한 목적으로 사용하는 합성 방식
+ ```js
+ function Dialog(props){
+  return (
+    <FancyBorder color="blue">
+      <h1 className="Dialog-title">
+        {props.title}
+      </h1>
+      <p className="Dialog-message">
+        {props.message}
+      </p>
+    </FancyBorder>
+  );
+ }
+
+ function WelcomeDialog(props){
+  return (
+    <Dialog
+      title ="어서 오세요" message = "우리 사이트에 방문하신 것을 환영합니다!"
+      />
+  );
+ }
+ ```
+### Containment와 Specialization을 같이 사용하기
+ 1. Containment를 위해서 props.children을 사용하고, Specialization을 위해 직접 정의한 props를 사용하면 됨
+ 2. 페이지 376의 코드를 참고하세요.
+ 3. Dialog컴포넌트는 이전의 것과 비슷한데 Containment를 위해 끝부분에 props.children을 추가함
+ 4. Dialog를 사용하는 SignUpDialog는 Specialization을 위해 props인 title, message에 값을 넣어주고 있고, 입력을 받기위해 input태그와 button태그를 사용함
+ 5. 이러한 형태로 Containment와 Specialization을 동시에 사용할 수 있음
+
+### 상속에 대해 알아보기
+ 1. 합성과 대비되는 개념으로 상속(inheritance)이 있음
+ 2. 자식 클래스는 부모 클래스가 가진 변수나 함수 등의 속성을 모두 갖게 되는 개념임
+ 3. 하지만 리액트에서는 상속보다는 합성을 통해 새로운 컴포넌트를 생성함
+  * 복잡한 컴포넌트를 쪼개 여러 개의 컴포넌트로 만들고, 만든 컴포넌트들을 조합하여 새로운 컴포넌트를 만들자!
+
+### 컨텍스트란 무엇인가?
+ 1. 기존의 일반적인 리액트에서는 데이터가 컴포넌트의 props를 통해 부모에서 자식으로 단방향으로 전달되었습니다.
+ 2. 컨텍스트는 리액트 컴포넌트들 사이에서 데이터를 기존의 props를 통해 전달하는 방식 대신 '컴포넌트 트리를 통해 곧바로 컴포넌트에 전달하는 새로운 방식'을 제공함
+ 3. 이 것을 통해 어떤 컴포넌트라도 쉽게 데이터에 접근할 수 있음.
+ 4. 컨텍스트를 사용하면 일일이 props로 전달할 필요 없기 그림처럼 데이터를 필요로 하는 컴포넌트에 곧바로 데이터를 전달할 수 있음.
+ ![alt text](image-1.png)
+
+### 언제 컨텍스트를 사용해야 할까?
+ 1. 여러 컴포넌트에서 자주 필요로 하는 데이터는 로그인 여부, 로그인 정보, UI테마, 현재 선택된 언어 등이 있음.
+ 2. 이런 데이터들을 기존의 방식대로 컴포넌트의 props를 통해 넘겨주는 예를 페이지 382에서 보여주고 있음
+ 3. 예재에서 처럼 props를 통해 데이터를 전달하는 기존 방식은 실제 데이터를 필요로 하는 컴포넌트까지의 깊이가 깊어질 수록 복잡해 짐
+ 4. 또한 반복적인 코드를 계속해서 작성해 주어야 하기 때문에 비효율적이고 가독성이 떨어짐
+ 5. 컨텍스트 사용하면 이러한 방식을 깔끔하게 개선할 수 있음
+ 6. 페이지 383의 예제는 컨텍스트를 사용한 예임
+ 7. React,createContext()함수를 사용해서 ThemeContext라는 이름의 컨텏트를 생성함.
+ 8. 컨텍스트를 사용하려면 컴포넌트의 상위 컴포넌트에서 Provider를 사용해야 함
+
+### 컨텍스트를 사용하기 전에 고려할 점
+ 1. 컨텍스트는 다른 레벨의 많은 컴포넌트가 특정 데이터를 필요로 하는 경우에 주로 사용함
+ 2. 하지만 무조건 컨텍스트를 사용하는 것이 좋은게 아님
+ 3. 컴포넌트와 컨텍스트가 연동되면 재사용성이 떨어지기 때문
+ 4. 따라서 다른 레벨의 많은 컴포넌트가 데이터를 필요로 하는 경우가 아니면 props를 통해 데이터를 전달하는 컴포넌트 합성 방법이 더 적합 함
+ 5. 페이지 395예제처럼 실제 user와 avatarSize를 사용하는 것은 Avatar컴포넌트 뿐인데 여러 단계에 걸쳐 props를 전달하고 있음
+ 6. 이런 경우 컨텍스트를 사용하지 않고 문제를 해결할 수 있는 방법은 Avatar컴포넌트를 변수에 저장하여 직접 넘겨주는 것이다
+ 7. 이렇게 하면 중간 단계의 컴포넌트들은 user와 avatarSize에 대해 몰라도 됨
+ 8. 하지만 396페이지의 예제가 모든 상황에서 좋은 것은 아님
+ 9. 데이터가 많아질수록 상위 컴포넌트가 점점 더 복잡해지기 때문
+ 10. 이런 경우 하위 컴포넌트를 여러 개의 변수로 나눠줘서 전달하면 됨
+ 11. 397 페이지 예제 참고하셈
+ 12. 하지만 어떤 경우에는 하나의 데이터에 다양한 레벨에 있는 중첩된 컴포넌트들의 접근이 필요할 수 있음
+ 13. 이런 경우라면 컨텍스트가 유리함
+ 14. 컨텍스트는 해당 데이터와 데이터의 변경사항을 모두 하위 컴포넌트들에게 broadcast해주기 때문임
+ 15. 컨텍스트를 사용하기에 적합한 데이터의 대표적인 예로는 '지역 정보', 'UI테마' 그리고 '캐싱된 데이터' 등이 있음.
+
+### 컨텍스트 API
+ 1. 이 절에서는 리액트에서 제공하는 컨텍스트 API를 통해 컨텍스트를 어떻게 사용하는지에 대해 알아보자.  
+####  [1] React,createContext  
+ 1. 컨텍스트를 생성하기 위한 함수임
+ 2. 파라미터에는 기본값을 넣어주면 됨
+ 3. 하위 컴포넌트는 가장 가까운 상위 레벨의 Provider로 부터 컨텍스트를 받게 되지만, 만일 Provider를 찾을 수 없다면 위에서 설정한 기본값은 사용하게 됨.
+ ```js
+ const MyContext = React.createContext(기본값);
+ ```
+#### [2] Context.Provider
+ 1. Context.Provider컴포넌트로 하위 컴포넌트들을 감싸주면 모든 하위 컴포넌트들이 해당 컨텍스트의 데이터에 접근할 수 있게 됨
+ ```js
+ <MyContext.Provider value = {/* some vlaue */}>
+ ```
+ 2. provider컴포넌트에는 value라는 prop이 있고, 이것은 Provider 컴포넌트 하위에 있는 컴포넌트에게 전달 됨
+ 3. 하위 컴포넌트를 consumer 컴포넌트라고 부름
+ 4. 페이지 389 Note, Provider vlaue에서 주의해야 할 사항 참고
+#### [3] Class.contextType
+ 1. Provider 하위에 있는 클래스 컴포넌트에서 컨텍스트의 데이터에 접근하기 위해 사용됨
+ 2. Class컴포넌트는 더 이상 사용하지 않으므로 참고만 하셈
+ #### [4] Context.Consumer
+ 1. 함수형 컴포넌트에서 Context.Consumer를 사용하여 컨텍스트를 구독할 수 있다.
+ ```js
+ <MyContext.Consumer>
+  {value => /* 컨텍스트의 값에 따라서 컴포넌트들을 렌더링 */}
+  </MyContext.Consumer>
+ ```
+ 2. 컴포넌트의 자식으로 함수가 올 수 있는데 이것을 function as a child라고 부름
+ 3. Context.Consumer로 감싸주면 자식으로 들어간 함수가 현재 컨텍스트의 value를 받아서 리액트 노드로ㅓ 리턴함
+ 4. 함수로 전달되는 value는 Provider의 value.....
+ #### [5] Context.displayName
+ 1. 컨텍스트 객체는 displayName이라는 문자열 속성을 갖는다
+ 2. 크롬의 리액트 개발자 도구에서는 컨텍스트의 Provider나 Consumer를 표시할 때 displayName을 함께 표시해 줌
+```js
+const MyContext = React.createContext(/* some value */);
+MyContext.displayName = 'MyDisplayName';
+// 개발자 도구에 "MyDiusplayName.Provider"로 표시됨
+<MyContext.display/>
+
+// 개발자 도구에 "MyDisplayName.Consumer"로 표시됨
+<MyContext.Consumer/>
+```
+
+### 여러 개의 컨텍스트 사용하기
+ 1. 여러 개의 컨텍스트를 동시에 사용하려면 Context.Provider를 중첩해서 사용함
+ 2. 예제 코드는 페이지 403 ~ 404에 있음
+ 3. 이런 방법으로 여러 개의 컨텍스트를 동시에 사용할 수 있음
+ 4. 하지만 두 개 또는 그 이상의 컨텍스트 값이 자주 함께 사용될 경우 모든 값을 한 번에 제공해주는 별도의 render prop컴포넌트를 직접 만드는 것을 고려하는 것이 좋음
+
+### useContext
+ 1. 함수형 컴포넌트에서 컨텍스트를 사용하기 위해 컴포넌트를 매번 Consumer 컴포넌트로 감싸주는 것 보다 더 좋은 방법이 있음. 바로 7장에서 배운 Hook이다
+ 2. useContext()훅은 React.createContext()함수 호출로 생성된 컨텍스트 객체를 인자로 받아서 현재 컨텍스트의 값을 리턴함
+ ```js
+ function MyComponent(props){
+  const value = useContext(MyContext);
+
+  return (
+    ...
+  )
+ }
+ ```
+
+## 2024-06-05 강의 내용
+### 하위 컴포넌트에서 State공유하기
+ 1. 물의 끓음 여부를 알려주는 BoilingVerdict컴포넌트 만듬
+ 2. 다음으로 Calculator 컴포넌트를 만듬. 이 컴포넌트는 state로 온도를 갖고, 사용자가 입력받은 온도를 handler를 통해 변경해주는 역할을 함
+ 3. 그리고 state값을 앞서서 만든 BoilingVerdict컴포넌트에 celsius라는 이름의 props로 전달합니다
+ ```js
+ function BoilingVerdict(props){
+  if (props.celsius >= 100){
+    return <p>물이 끓습니다.</p>
+  }
+  return <p>물이 끓지 않습니다.</p>
+ }
+
+ function Calculator(props){
+  const [temperature, setTemperature] = useState('');
+
+  const handleChange = (event) => {
+    setTemperature(event.target.value);
+  }
+  return (
+    <fieldset>
+      <legend>섭씨 온도를 입력하세요 : </legend>
+      <input value = {temperature} onChange={handleChange} />
+      <BoilingVerdict celsius={parseFloat(temperature)}>
+    </fieldset>
+  )
+ }
+ ```
+4. 입력 컴포넌트 추출하기(TemperatureInput)
+5. 다음으로 Valculator컴포넌트에 있는 온도 입력 부분을 별도의 컴포넌트로 추출함
+6. 이렇게 하는 이유는 용도에 따라 입력받을 수 있도록 해서 재사용이 가능하기 위해서임
+```js
+const scaleNames = {
+  c: '섭씨',
+  f: '화씨'
+};
+
+function TemperatureInput(props){
+  const [temperature, setTemperature] = useState('');
+
+  const handleChange = (event) => {
+    setTemperature(event.target.value);
+  }
+
+  return (
+    <fieldset>
+      <legend>온도를 입력해 주세요(단위:{scalNames[props.scale]}) : </legend>
+      <input value = {temperature} onChange={handleChange} />
+    </fieldset>
+  )
+}
+```
+7. 온도변환 함수 작성하기
+8. 섭씨와 화씨 값을 동기화 하기 위해서 각각의 변환 함수를 작성해야 함
+9. 다음으로 변환 함수를 호출하는 함수를 작성함
+10. tryConvert()함수는 온도와 변환 함수를 매개변수로 받아 결과값을 리턴해 줌
+```js
+function toCelsius(fahrenheit){
+  return (fahrenheit - 32) * 5 / 9;
+}
+
+function toFahrenheit(celsius){
+  return (celsius * 9/5) + 32;
+}
+
+function tryConvert(temperature, convert){
+  const input = parseFloat(temperature);
+  if(Number.isNaN(input)){
+    return '';
+  }
+  const output = convert(input);
+  const rounded = Math.round(output * 1000) / 1000;
+  return rounded.toString();
+}
+``` 
+11. Shared State 적용하기
+12. 다음은 하위 컴포넌트의 State를 부모 컴포넌트로 올려서 Shared Stated를 적용함
+13. 이것을 Lifting State Up(State끌어 올리기)라고 함
+14. 이를 위해 먼저 TemperatureInput 컴포넌트에서 온도 값을 가져오는 부분을 다음과 같이 수정한다
+15. 이렇게 수정하면 온도를 state에서 가져오지 않고 props를 통해 가져오게 됨
+```js
+return (
+  ...
+    //변경 전 : <input value={temperature} onChange={handleChange} />
+    <input value={props.temperature} onChange={handleChange} />
+)
+```
+16. Calculator 컴포넌트 수정하기
+17. 코드는 354 페이지 참조
+18. State는 Temperature, scale 2개를 사용함
+19. 이 것을 이용해서 변환 함수를 통해 섭씨와 화씨 온도를 구해서 사용함
+20. Temperature 컴포넌트를 사용하는 부분에서 온도의 단위를 props로 넣어줌
+21. 값이 변경되면 업데이트를 위한 함수를 onTemperatureChange에 넣어주자
+
+### 합성에 대해 알아보기
+ 1. 합성(Composition)은 '여러 개의 컴포넌트를 합쳐서 새로운 컴포넌트를 만드는 것' 이다.
+ 2. 조합 방법에 따라 합성의 사용 기법은 다음과 같이 나눌 수 있다.  
+[1] Containment(담다, 포함하다, 격리하다)
+ 1. 특정 컴포넌트가 하위 컴포넌트를 포함하는 형태의 합성 방법임
+ 2. 컴포넌트에 따라서는 어떤 자식 엘리먼트가 들어올지 미리 예상할 수 없는 경우가 있습니다.
+ 3. 범용적인 '박스' 역할을 하는 Sidebar 혹은 Dialog와 같은 컴포넌트에서 특히 자주 볼 수 있습니다.
+ 4. 이런 컴포넌트에서는 children prop을 사용하여 자식 엘리먼트를 출력에 그대로 전달하는 것이 좋음
+ 5. 이 때 children prop은 컴포넌트의 props에 기본적으로 들어있는 children속성을 사용함.
+ 6. 다음과 같이 props.children을 사용하면 해당 컴포넌트의 하위 컴포넌트가 모두 children으로 들어오게 됨
+ ```js
+ function FancyBorder(props){
+  return (
+    <div className = {'FancyBorder FancyBorder-' + props.color}>
+      {props.children}
+    </div>
+  );
+ }
+ ```
+ 7. children은 다음 구조에서 세 번째 들어가는 파라미터임
+ 8. 파라미터가 배열로 되어있는 이유는 여러 개의 하위 컴포넌트를 가질 수 있기 때문
+ 9. children이 배열로 되어있는 것은 여러 개의 하위 컴포넌트를 위한 것임
+
+### React,createElement()에 관하여
+ 1. 교재 150에서 설명한 것과 같이 jsx를 사용하지 않는 경우의 props전달 방법
+ 2. 정확히 말하면 JSX를 사용하지 ㅇ낳고 리엑트로 엘리먼트를 생성하는 방법
+ ```js
+ // JSX를 이요한 간단한 방법
+ const jsxElement = <h1 className="jsx">JSX Element </h1>
+ // 리액트 기능을 사용한 방법
+ const reactElement = React.createElement(
+  'h1', // tag
+  {className: 'obj'}, // props
+  'OBJ Element' // child element
+ )
+ ```
+
+### FancyBorder 사용
+ 1. FancyBorder 컴포넌트를 사용하는 예제
+ 2. WelcomDialog컴포넌트는 FancyBorder 컴포넌트를 사용하고, FancyBorder컴포넌트는 h1태그와 p태그 두 개의 태그를 children이 props로 전달됨
+ ```js
+ function WelcomeDialog(props){
+  return (
+    <FancyBorder clolor = "blue">
+      <h1 className = "Dialog-title">
+        어서오세요
+      </h1>
+      <p className = "Dialog-message">
+        우리 사이트에 방문하신 것을 환영합니다!
+      </p>
+    <FancyBorder>
+  )
+ }
+ ```
+ 3. 리액트에서는 props.children을 통해 하위 컴포넌트를 하나로 모아서 제공해 줌
+ 4. 만일 여러 개의 children 집합이 필요할 경우는 별도로 props를 정의해서 각각 원하는 컴포넌트를 넣어줌
+ 5. 예와 같이 SplitPane은 화면을 왼쪽과 오른쪽으로 분할해 주고, App에서는 SplitPane을 사용해서 left, right 두 개의 props를 정의하고 있음
+ 6. 즉, App에서 left, right를 props를 받아서 화면을 분할하게 됨. 이처럼 여러 개의 children집합이 필요한 경우 별도의 prop를 정의해서 사용해야 함
+ ```js
+ function SplitPane(props){
+  return (
+    <div className = "SplitPane">
+      <div className = "SplitPane-left">
+        {props.left}
+      </div>
+      <div className = "SplitPane-right">
+        {props.right}
+      </div>
+    </div>
+  );
+ }
+
+ function App(props){
+  return (
+    <SplitPane left = {<Contacts />} right = {<Chat />} />
+  );
+ }
+ ```
 ## 2024-05-29 강의 내용
 ### textarea 태그
  1. html에서는 textarea 의 children으로 텍스트가 들어가는 형태입니다.
