@@ -9,14 +9,15 @@ import NameForm from './ch_09/NameForm';
 import Numberlist from './ch_09/NumberList';
 import SignUp from './ch_11/SignUp';
 import Card from './ch_13/Card';
-import ContextTest from '.ch_13/ContextTest'
 import ProfileCard from './ch_13/ProfileCard';
 import MainContent from './ch_14/MainContext';
+import MainPage from './ch_14/MainPage';
+import Block from './ch_14/Block';
 
 function App() {
   return (
     <div className="App">
-      <MainContext/>
+      <Block/>
     </div>
   );
 }

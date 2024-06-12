@@ -27,9 +27,9 @@ function ThemeButton(props){
     )
 }
 
-// ok
-useContext(MyContext)
+// // ok
+// useContext(MyContext)
 
-// 잘못된 사용법
-useContext(MyContext.Consumer)
-useContext(MyContext.Provider)
+// // 잘못된 사용법
+// useContext(MyContext.Consumer)
+// useContext(MyContext.Provider)

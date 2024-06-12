@@ -10,6 +10,154 @@
 1️⃣3️⃣ [13주차](#2024-05-29-강의-내용)  
 1️⃣4️⃣ [14주차](#2024-06-05-강의-내용)  
 1️⃣5️⃣ [15주차(보강 1)](#2024-06-11-강의-내용)  
+1️⃣6️⃣ [15주차(보강 2)](#2024-06-12-강의-내용)
+
+## 2024-06-12 강의 내용
+### css
+#### CSS란?
+ 1. Css는 Cascading Style Sheets의 약자로 스타일링을 위한 언어임
+ 2. Cascading이란 계단식이라는 뜻으로 한 엘리먼트에 여러 스타일이 적용될 경우 스타일간의 충돌을 막기 위해 계단식으로 스타일을 적용시키는 규칙을 갖고 있음.
+ 3. 즉 하나의 스타일이 여러 개의 엘리먼트에 적용될 수도 있고, 하나의 엘리먼트에도 여러 개의 스타일이 적용될 수도 있음
+ 4. 엘리먼트에 스타일이 적용되는 규칙을 selector(선택자)라고 함. CSS는 이 선택자와 스타일로 이루어 짐.
+ 5. 이번 장에서는 선택자와 스타일을 카테고리별로 나누어 학슴함
+#### CSS 문법과 선택자
+ 1. 선택자를 먼저 쓰고 다음에 적용할 스타일을 중괄호 안에 세미콜론으로 구분하여 하나씩 작성함
+ ![alt text](image-2.png)
+ 2. 선택자는 HTML 엘리먼트를 직접 넣어도 되고, 엘리먼트의 조합 혹은 class의 형태로 작성 가능함
+ 3. 스타일은 property(속성)과 key value(키 값)로 이루어 지며, 이들은 콜론으로 구분하고, 각 스타일은 세미콜론으로 구분함
+ 4. 고재는 몇가지 선택자의 예를 설명하고 있음
+ 5. 첫 번째는 태그를 직접 사용하는 것
+ ```css
+ h1{
+  color: green;
+ }
+ ```
+ 6. 두 번째는  id 선택자를 설명하고 있는데 이 것은 절대 사용하지 마라. js에서 id를 사용하잖아
+ 7. 세 번째는 class선택자임. HTML 태그로 특정할 수 없는 스타일은 모두 class로 정의함
+ ```js
+<span class="medium">
+</span>
+<p class="medium">
+</p>
+.medium {
+  font-size: 20px;
+}
+p.medium {
+  font-size: 20px
+}
+ ```
+8. 여섯 번째는 상태 선택자임
+![alt text](image-3.png)
+```css
+button:hover {
+  font-weight: bold;
+}
+a:active {
+  color: red;
+}
+input:focus {
+  color: #000000;
+}
+option:checked {
+  background: #00ff00;
+}
+p:first-child {
+  background: #ff0000;
+}
+p:last-child {
+  background: #0000ff;
+}
+```
+#### 레이아웃과 관련된 속성
+ 1. 화면에 엘리먼트를 어떻게 배치할 것인지를 정의함
+ 2. 가장 중요한 속성은 display
+ 3. 모든 엘리먼트는 기본 display 속성을 갖고 있지만 이 기본값을 변경해 줄 수 있음
+ ```css
+ div {
+  display: none | block | inline | flex;
+ }
+ ```
+ 4. none는 존재는 하지만 화면에 보이지 않는 것으로, js를 넣을 때 많이 사용함
+ 5. block은 세로로 정렬되며, width의 height를 갖을 수 있음. 크기와 상관없이 한 줄을 점유함
+ 6. inline은 가로로 정렬되며, width의 height를 갖을 수 없음. 컨텐츠의 크기만큼 공간을 점유함
+ 7. inline-block는 기본적으로 inline의 특성을 갖지만, width와 height등 block의 특성을 사용할 수 있음
+ 8. 대표적인 blockrhk inline태그는 다음과 같음   
+   __Block: div table h1 ~ h6 p ul ol li dl dt dd pre 등__
+   __inline: span, a, br, em, strong, input, label, img 등__
+ 9. flex는 컨테이너의 형태로 엘리먼트를 관리함. Mozilla 참고
+ 10. 최근 들어서는 Grid를 많이 사용함. Flex가 1차원 적이라면 Grid는 2차원 적으로 관리가 가능하기 때문. Mozilla 참고
+ 11. visibility 속성은 엘리먼트의 가시성을 정의함
+ ```css
+ div {
+  visibility: visible | hidden;
+ }
+ ```
+ 12. 여기서 중요한 것은 display:nonerhk visibility:hidden의 차이임
+ 13. display:none은 엘리먼트의 영역이 보이지 않고, visibility:hidden는 차지하는 영역은 보임
+ 14. 다음으로 position 속성은 엘리먼트를 어떻게 위치시킬 것인지를 정의함
+ ```css
+ div{
+  position:static | fixed | relative | absolute;
+ }
+ ```
+ 15. static은 원래 순서대로 위치 시킴
+ 16. fixed는 window에 상대적위치라고 정의 하지만 지금은 sticky로 바뀜.
+ 17. relative는 상대적, absolute는 절대적 위치를 지정함
+ 18. 다음으로 엘리먼트의 크기를 나타내는 속성임
+ ```css
+ div{
+  width
+ }
+ ```
+ 19. flex box
+ ```css
+ div{
+  display: flex;
+  flex-direction: row | column | row-reverse | column-reverse;
+  align-items: stretch | flex-start | center | flex-end | baseline;
+  justify-content: flex-start | center | flex-end | space-between | space-around;
+ }
+ ```
+ 20. 폰트와 관련된 속성
+ ```css
+ #title {
+  font-family: "사용할 글꼴 이름", <일반적인 글꼴 분류>;
+  font-size: value;
+  font-weight: normal | bold;
+  font-style: normal | italic | oblique;
+ }
+ ```
+ ![alt text](image-4.png)
+ 21. font-size 등 크기를 나타내는 단위로는 px, em, rem, vm 등이 있음
+ 22. 1em은 16px과 동일함. 다음을 참고해라.   
+ http://www.w3schools.com/cssref/css_pxtoemconversion.php   
+ 23. font-style 속성은 다음과 같다. 
+ ![alt text](image-5.png)  
+ 24. 많이 사용하는 기타 속성
+ ![alt text](image-6.png)  
+  *HUE : hsl(hue, saturation, lightness)
+
+### styled-components
+ 1. CSS 문법을 그대로 사용하면서 결과물을 스타일링된 컴포넌트 형태로 만들어 주는 오픈소스 라이브러리임
+ 2. 컴포넌트의 개념을 사용하고 있어 리액트 개발에 많이 사용됨
+ #### styled-components 섳리하기
+ 1. npm install --save styled-compoenets
+ 2. 교재에는 위와 같이 나와 있지만 npm v5부터는 사용하지 않아도 됨. 자동추가
+ 3. 440 페이지 코드처럼 import 해서 사용하면 됨
+ #### styled-components 기본 사용법
+ 1. 태그드 템플릿 리터럴을 사용하여 구성 요소의 스타일을 지정함
+ 2. 태그드 템플릿 리터럴은 js에서 제공하는 문법 중 하나로 리터럴을 템플릿 형태로 사용하는 것
+ 3. sytled.<HTML tag>`...` 의 형태로 정의한 후 컴포넌트를 생성해서 사용함
+ #### styled-components의 props 사용하기
+ 1. props를 이용하여 조건이나 동적으로 변하는 값을 사용해서 스타일링을 할 수 있음
+ 2. 페이지 445 참고
+ #### styled-components의 스타일 확장하기
+ 1. 먼저 정의한 스타일 컴포넌트에 스타일을 추가하여 재정의 하는 것
+ #### styled-components를 사용하여 스타일링해 보기
+ 1. Block 컴포넌트를 만들어 styled-components를 적용해 보자
+
+  
+
 
 ## 2024-06-11 강의 내용
 ### Specialization (특수화, 전문화)
